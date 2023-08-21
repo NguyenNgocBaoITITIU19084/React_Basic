@@ -1,15 +1,19 @@
 import React from "react";
 
+
+// --------------------------------------------------------
 class AddTodoForm extends React.Component {
   state = {
     id: 0,
     title: "",
   };
+
   handleInput = (event) => {
     this.setState({
       title: event.target.value,
     });
   };
+
   addNewTodo = (e) => {
     e.preventDefault();
     if (!this.state.title) {
@@ -20,15 +24,17 @@ class AddTodoForm extends React.Component {
       title: this.state.title,
     });
   };
+
   render() {
     return (
-      <>
+      <React.Fragment>
         <div className="todo-container">
           <h2 className="title">Todo App - Bao Nguyen</h2>
           <input
             className="input-todo"
             type="text"
             placeholder="Your todo list"
+            value={this.state.title}
             onChange={(e) => this.handleInput(e)}
           />
           <button
@@ -39,7 +45,7 @@ class AddTodoForm extends React.Component {
             Add
           </button>
         </div>
-      </>
+      </React.Fragment>
     );
   }
 }

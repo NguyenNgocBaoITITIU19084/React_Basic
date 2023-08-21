@@ -1,54 +1,66 @@
 import React from "react";
 
+// --------------------------------------------------------
 class TableTodoComponent extends React.Component {
   state = {
     isEdit: false,
     title: "",
   };
-  handeleDeleteButton = (id) => {
-    this.props.removeState(id);
-  };
-  handleEditButton = () => {
+
+  handleEditOpen = () => {
     this.setState({
       isEdit: !this.state.isEdit,
     });
+  }
+
+  handeleDeleteButton = (id) => {
+    this.props.removeState(id);
   };
+
+  handleEditButton = (id) => {
+    this.setState({
+      isEdit: !this.state.isEdit,
+    });
+    this.props.editState(id, this.state.title);
+  };
+
   handleEditInput = (e) => {
     this.setState({
       title: e.target.value,
     });
   };
+
   render() {
-    let { todoList } = this.props;
     return (
-      <>
+      <React.Fragment>
         <div className="todo-table">
           <ul>
-            {todoList &&
-              todoList.length > 0 &&
-              todoList.map((item, index) => {
+            {
+              this.props.todoList &&
+              this.props.todoList.length > 0 &&
+              this.props.todoList.map((item, index) => {
                 return (
                   <li key={item.id}>
                     {this.state.isEdit === false ? (
-                      <>
+                      <React.Fragment>
                         <span>
                           {index + 1} - {item.title}
                         </span>
-                        <button onClick={() => this.handleEditButton()}>
+                        <button onClick={() => this.handleEditOpen()}>
                           Edit
                         </button>
-                      </>
+                      </React.Fragment>
                     ) : (
-                      <>
+                      <React.Fragment>
                         <input
                           type="text"
-                          value={item.title}
+                          value={this.title}
                           onChange={(e) => this.handleEditInput(e)}
                         />
-                        <button onClick={() => this.handleEditButton()}>
+                        <button onClick={() => this.handleEditButton(item.id)}>
                           Save
                         </button>
-                      </>
+                      </React.Fragment>
                     )}
 
                     <button onClick={() => this.handeleDeleteButton(item.id)}>
@@ -56,10 +68,11 @@ class TableTodoComponent extends React.Component {
                     </button>
                   </li>
                 );
-              })}
+              })
+            }
           </ul>
         </div>
-      </>
+      </React.Fragment>
     );
   }
 }
