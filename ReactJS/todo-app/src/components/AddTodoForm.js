@@ -1,5 +1,5 @@
 import React from "react";
-
+import { ToastContainer, toast } from "react-toastify";
 class AddTodoForm extends React.Component {
   state = {
     id: 0,
@@ -13,12 +13,13 @@ class AddTodoForm extends React.Component {
   addNewTodo = (e) => {
     e.preventDefault();
     if (!this.state.title) {
-      return alert("Missing Value!");
+      return toast.error("Missing Value");
     }
     this.props.addState({
       id: Math.floor(Math.random() * 600) + 1,
       title: this.state.title,
     });
+    return toast.success("Successfull Add a Todo");
   };
   render() {
     return (
