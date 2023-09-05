@@ -15,7 +15,17 @@ class Navbar extends React.Component {
               <Link to={`store`}>Store</Link>
             </li>
             <li>
-              <NavLink to="child">Child Home</NavLink>
+              <NavLink
+                to="/child"
+                style={({ isActive, isPending }) => {
+                  return {
+                    fontWeight: isActive ? "bold" : "",
+                    color: isPending ? "red" : "black",
+                  };
+                }}
+              >
+                ChildHome
+              </NavLink>
             </li>
           </ul>
         </nav>
